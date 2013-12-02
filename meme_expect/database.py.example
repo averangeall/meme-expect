@@ -1,0 +1,10 @@
+def default():
+    return {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'meme_expect',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+

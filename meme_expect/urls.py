@@ -5,6 +5,9 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', 'turker.views.expect'),
+    url(r'^init/$', 'turker.views.init'),
+
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),
     # url(r'^meme_expect/', include('meme_expect.foo.urls')),
