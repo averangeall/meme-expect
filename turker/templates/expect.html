@@ -9,12 +9,16 @@
         <link rel="stylesheet" type="text/css" href="{% static "css/expect.css" %}"></link>
     </head>
 
-    <img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" />
-    <form action="/fill/" method="post">
-        {% csrf_token %}
-        <input type="text" name="expect" id="expect" />
-        <input type="hidden" name="gag_id" id="gag_id" value="{{ meme.gag_id }}" />
-    </form>
+    <body>
+        <img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" />
+        <form action="/fill/" method="post">
+            {% csrf_token %}
+            <input type="text" name="expect" id="expect" />
+            <input type="hidden" name="gag_id" id="gag_id" value="{{ meme.gag_id }}" />
+        </form>
+    </body>
+
+    <script src="{% static "js/expect.js" %}"></script>
 </html>
 
 
