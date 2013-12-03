@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        <img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" />
+        <a href="http://9gag.com/gag/{{ meme.gag_id }}" target="_blank"><img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" /></a>
         <form action="/fill/" method="post">
             {% csrf_token %}
             <input type="text" name="expect" id="expect" />

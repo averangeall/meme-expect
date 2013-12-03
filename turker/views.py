@@ -9,10 +9,11 @@ import models
 def expect(request):
     dictt = {}
     dictt.update(csrf(request))
-    all_cnts = models.Meme.objects.filter(expected_line='').values('template').annotate(dcount=Count('template')).order_by('dcount')
-    assert all_cnts.count()
-    template_choice = random.randint(0, int(all_cnts.count() / 10.0) - 1)
-    template = models.Template.objects.get(id=all_cnts[template_choice]['template'])
+    templates = models.Meme.objects.filter(expected_line='').values('template').annotate()
+    len(templates) # removing this line will cause templates.count() error (django bug?)
+    assert templates.count()
+    template_choice = random.randint(0, templates.count() - 1)
+    template = models.Template.objects.get(id=templates[template_choice]['template'])
     memes = models.Meme.objects.filter(template=template)
     assert memes.count()
     meme_choice = random.randint(0, memes.count() - 1)
