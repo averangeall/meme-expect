@@ -9,6 +9,10 @@
         <link rel="stylesheet" type="text/css" href="{% static "css/expect.css" %}"></link>
     </head>
 
+    <img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" />
+    <form action="/fill/" method="post">
+        <input type="text" name="expect" id="expect" />
+    </form>
 </html>
 
 

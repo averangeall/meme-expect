@@ -1,10 +1,23 @@
 import os
 import re
+import random
 from django.shortcuts import render_to_response
+from django.db.models import Count
 import models
 
 def expect(request):
-    return render_to_response('expect.html')
+    all_cnts = models.Meme.objects.filter(expected_line='').values('template').annotate(dcount=Count('template')).order_by('dcount')
+    assert all_cnts.count()
+    template_choice = random.randint(0, int(all_cnts.count() / 10.0) - 1)
+    template = models.Template.objects.get(id=all_cnts[template_choice]['template'])
+    print template.name
+    memes = models.Meme.objects.filter(template=template)
+    assert memes.count()
+    print memes.count()
+    meme_choice = random.randint(0, memes.count() - 1)
+    print meme_choice
+    meme = memes[meme_choice]
+    return render_to_response('expect.html', {'meme': {'template': template.name, 'gag_id': meme.gag_id}})
 
 def init(request):
     meme_root = 'turker/static/memes'
