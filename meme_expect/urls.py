@@ -7,6 +7,7 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
     url(r'^$', 'turker.views.expect'),
     url(r'^init/$', 'turker.views.init'),
+    url(r'^fill/$', 'turker.views.fill'),
 
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),
