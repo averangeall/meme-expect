@@ -52,5 +52,7 @@ def fill(request):
     meme = models.Meme.objects.get(gag_id=gag_id)
     meme.expected_line = expected_line
     meme.save()
+    log = models.Log(meme=meme)
+    log.save()
     return redirect('/')
 

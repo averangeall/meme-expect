@@ -10,3 +10,7 @@ class Meme(models.Model):
     second_line = models.TextField()
     expected_line = models.TextField()
 
+class Log(models.Model):
+    meme = models.ForeignKey(Meme)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
