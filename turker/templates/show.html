@@ -1,0 +1,22 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Meme Expect Show</title>
+        <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static "css/flat-ui.css" %}"></link>
+        <link rel="stylesheet" type="text/css" href="{% static "css/show.css" %}"></link>
+    </head>
+
+    <body>
+        <div id="content">
+            <h1>Those Are Your Expectations</h1>
+            <a href="http://9gag.com/gag/{{ meme.gag_id }}" target="_blank"><img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" /></a>
+            <h3>{{ meme.expected_line }}</h3>
+        </div>
+    </body>
+</html>
+
+

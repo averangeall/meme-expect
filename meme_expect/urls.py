@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url(r'^$', 'turker.views.expect'),
     url(r'^init/$', 'turker.views.init'),
     url(r'^fill/$', 'turker.views.fill'),
+    url(r'^show/$', 'turker.views.show'),
 
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),

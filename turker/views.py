@@ -57,3 +57,17 @@ def fill(request):
     log.save()
     return redirect('/')
 
+def show(request):
+    dictt = {}
+    memes = models.Meme.objects.exclude(expected_line='').exclude(expected_line='x')
+    if not memes.count():
+        return render_to_response('show.html')
+    meme_choice = random.randint(0, memes.count() - 1)
+    meme = memes[meme_choice]
+    dictt['meme'] = {
+        'template': meme.template.name,
+        'gag_id': meme.gag_id,
+        'expected_line': meme.expected_line,
+    }
+    return render_to_response('show.html', dictt)
+

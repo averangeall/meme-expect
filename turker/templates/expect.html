@@ -4,18 +4,22 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Meme Expect</title>
+        <title>Meme Expect Fill</title>
         <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static "css/flat-ui.css" %}"></link>
         <link rel="stylesheet" type="text/css" href="{% static "css/expect.css" %}"></link>
     </head>
 
     <body>
-        <a href="http://9gag.com/gag/{{ meme.gag_id }}" target="_blank"><img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" /></a>
-        <form action="/fill/" method="post">
-            {% csrf_token %}
-            <input type="text" name="expect" id="expect" />
-            <input type="hidden" name="gag_id" id="gag_id" value="{{ meme.gag_id }}" />
-        </form>
+        <div id="content">
+            <h1>Write Down Your Expectation</h1>
+            <a href="http://9gag.com/gag/{{ meme.gag_id }}" target="_blank"><img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" /></a>
+            <form action="/fill/" method="post">
+                {% csrf_token %}
+                <input type="text" name="expect" id="expect" class="form-control" />
+                <input type="hidden" name="gag_id" id="gag_id" value="{{ meme.gag_id }}" />
+            </form>
+        </div>
     </body>
 
     <script src="{% static "js/expect.js" %}"></script>
