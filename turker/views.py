@@ -18,6 +18,7 @@ def expect(request):
     assert memes.count()
     meme_choice = random.randint(0, memes.count() - 1)
     meme = memes[meme_choice]
+    assert meme.expected_line == ''
     dictt['meme'] = {'template': template.name, 'gag_id': meme.gag_id}
     return render_to_response('expect.html', dictt)
 

@@ -10,6 +10,9 @@ urlpatterns = patterns('',
     url(r'^fill/$', 'turker.views.fill'),
     url(r'^show/$', 'turker.views.show'),
 
+    url(r'^ocr/$', 'ocr.views.write'),
+    url(r'^insert/$', 'ocr.views.insert'),
+
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),
     # url(r'^meme_expect/', include('meme_expect.foo.urls')),

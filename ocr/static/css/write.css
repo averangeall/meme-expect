@@ -1,0 +1,12 @@
+body {
+    background: #ECF0F1;
+}
+
+#content {
+    width: 100%;
+    text-align: center;
+}
+
+#line-1, #line-2 {
+    width: 400px;
+}

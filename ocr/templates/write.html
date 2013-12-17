@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Meme OCR Groundtruth</title>
+        <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static "css/flat-ui.css" %}"></link>
+        <link rel="stylesheet" type="text/css" href="{% static "css/write.css" %}"></link>
+    </head>
+
+    <body>
+        <div id="content">
+            <h1>Write Down OCR Groundtruth</h1>
+            <a href="http://9gag.com/gag/{{ meme.gag_id }}" target="_blank"><img src="/static/memes/{{ meme.template }}/{{ meme.gag_id }}.jpg" /></a>
+            <form action="/insert/" method="post">
+                {% csrf_token %}
+                <p><input type="text" name="line-1" id="line-1" class="form-control" /></p>
+                <p><input type="text" name="line-2" id="line-2" class="form-control" /></p>
+                <p><input type="submit" value="Ground!" class="btn btn-primary"/></p>
+                <input type="hidden" name="gag_id" id="gag_id" value="{{ meme.gag_id }}" />
+            </form>
+        </div>
+    </body>
+
+    <script src="{% static "js/write.js" %}"></script>
+</html>
+
+
