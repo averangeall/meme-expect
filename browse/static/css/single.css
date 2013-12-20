@@ -1,0 +1,13 @@
+body {
+    background: #ECF0F1;
+}
+
+#content {
+    width: 100%;
+    text-align: center;
+}
+
+img {
+    max-height: 400px;
+}
+

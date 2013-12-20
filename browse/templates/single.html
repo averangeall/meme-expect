@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Browse {{ template.title }}</title>
+        <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static "css/flat-ui.css" %}"></link>
+        <link rel="stylesheet" type="text/css" href="{% static "css/single.css" %}"></link>
+    </head>
+
+    <body>
+        <div id="content">
+            <h1>Browse Meme Examples</h1>
+            <h3>We have {{ memes|length }} examples for {{ template.title }}</h3>
+            {% for meme in memes %}
+                <div>
+                    <img src="/static/memes/{{ template.name }}/{{ meme.gag_id }}.jpg" />
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+
+    <script src="{% static "js/expect.js" %}"></script>
+</html>
+
+

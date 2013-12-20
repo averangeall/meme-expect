@@ -1,0 +1,18 @@
+body {
+    background: #ECF0F1;
+}
+
+#content {
+    width: 100%;
+    text-align: center;
+}
+
+.browse-template {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.browse-template img {
+    max-height: 400px;
+}
+

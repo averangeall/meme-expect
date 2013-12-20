@@ -13,6 +13,9 @@ urlpatterns = patterns('',
     url(r'^ocr/$', 'ocr.views.write'),
     url(r'^insert/$', 'ocr.views.insert'),
 
+    url(r'^browse/$', 'browse.views.every'),
+    url(r'^browse/(?P<template_name>.+)$', 'browse.views.single'),
+
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),
     # url(r'^meme_expect/', include('meme_expect.foo.urls')),
