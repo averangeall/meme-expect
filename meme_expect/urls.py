@@ -5,7 +5,7 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'turker.views.expect'),
+    url(r'^$', 'reasonable.views.show'),
     url(r'^init/$', 'turker.views.init'),
     url(r'^fill/$', 'turker.views.fill'),
     url(r'^show/$', 'turker.views.show'),
@@ -15,6 +15,8 @@ urlpatterns = patterns('',
 
     url(r'^browse/$', 'browse.views.every'),
     url(r'^browse/(?P<template_name>.+)$', 'browse.views.single'),
+
+    url(r'^reasonable/$', 'reasonable.views.show'),
 
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),

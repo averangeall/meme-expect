@@ -1,0 +1,35 @@
+body {
+    background: #ECF0F1;
+}
+
+#content {
+    width: 100%;
+    text-align: center;
+}
+
+.reasonable-table {
+    display: table;
+    width: 100%;
+}
+
+.reasonable-set {
+    display: table-row;
+}
+
+.reasonable-meme {
+    display: table-cell;
+    text-align: right;
+    width: 300px;
+}
+
+.reasonable-situation {
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    width: 500px;
+    padding-left: 20px;
+}
+
+.reasonable-meme img {
+    max-width: 300px;
+}
