@@ -13,14 +13,6 @@ class Meme(models.Model):
     expected_line = models.TextField()
     scene = models.TextField()
 
-    # very dirty work
-    def get_scene(self):
-        if self.scene:
-            return self.scene
-        scene = self.first_line.lower()
-        scene = 'you {}'.format(scene)
-        return scene
-
 class Log(models.Model):
     meme = models.ForeignKey(Meme)
     timestamp = models.DateTimeField(auto_now_add=True)

@@ -1,12 +1,14 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic.base import RedirectView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'reasonable.views.show'),
+    url(r'^$', RedirectView.as_view(url='/reasonable/')),
     url(r'^init/$', 'turker.views.init'),
+
     url(r'^fill/$', 'turker.views.fill'),
     url(r'^show/$', 'turker.views.show'),
 
@@ -16,7 +18,8 @@ urlpatterns = patterns('',
     url(r'^browse/$', 'browse.views.every'),
     url(r'^browse/(?P<template_name>.+)$', 'browse.views.single'),
 
-    url(r'^reasonable/$', 'reasonable.views.show'),
+    url(r'^reasonable/$', 'reasonable.views.show_reasonable'),
+    url(r'^reasonable/insert/$', 'reasonable.views.insert_reasonable'),
 
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),

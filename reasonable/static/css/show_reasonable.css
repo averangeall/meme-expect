@@ -33,3 +33,8 @@ body {
 .reasonable-meme img {
     max-width: 300px;
 }
+
+.reasonable-situation input.form-control {
+    width: 400px;
+}
+

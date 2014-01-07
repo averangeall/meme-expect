@@ -1,8 +1,11 @@
+from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
+from django.shortcuts import redirect
 from turker import models
 
-def show(request):
+def show_reasonable(request):
     dictt = {}
+    dictt.update(csrf(request))
     dictt['templates'] = []
     suitable_templates = models.Template.objects.filter(expect_suitable=True)
     for template in suitable_templates:
@@ -12,8 +15,26 @@ def show(request):
         for meme in memes:
             meme_part = {}
             meme_part['gag_id'] = meme.gag_id
-            meme_part['situation'] = 'You are a {subject}, and {scene}.'.format(subject=template.subject, scene=meme.get_scene())
+            meme_part['subject'] = template.subject
+            if meme.scene:
+                meme_part['sure'] = True
+                meme_part['scene'] = meme.scene
+            else:
+                meme_part['sure'] = False
+                meme_part['scene'] = meme.first_line.lower()
             template_part['memes'].append(meme_part)
         dictt['templates'].append(template_part)
     return render_to_response('show_reasonable.html', dictt)
+
+def insert_reasonable(request):
+    if request.method != 'POST':
+        return redirect('/reasonable/')
+    gag_id = request.POST.get('gag_id')
+    scene = request.POST.get('scene')
+    meme = models.Meme.objects.get(gag_id=gag_id)
+    meme.scene = scene
+    meme.save()
+    log = models.Log(meme=meme)
+    log.save()
+    return redirect('/reasonable/#set-{}'.format(gag_id))
 

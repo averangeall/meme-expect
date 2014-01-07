@@ -18,13 +18,23 @@
                 <h3>{{ template.name }}</h3>
                 <div class="reasonable-table">
                     {% for meme in template.memes %}
-                        <div class="reasonable-set">
+                        <div id="set-{{ meme.gag_id }}" class="reasonable-set">
                             <div class="reasonable-meme">
                                 <img src="/static/memes/{{ template.name }}/{{ meme.gag_id }}.jpg" />
                             </div>
-                            <div class="reasonable-situation">
-                                {{ meme.situation }}
-                            </div>
+                            {% if meme.sure %}
+                                <div class="reasonable-situation">
+                                    You are a {{ meme.subject }}, and {{ meme.scene }}.
+                                </div>
+                            {% else %}
+                                <div class="reasonable-situation">
+                                    <form action="/reasonable/insert/" method="post">
+                                        {% csrf_token %}
+                                        You are a {{ meme.subject }}, and <input type="text" name="scene" class="form-control" value="{{ meme.scene }}" />.
+                                        <input type="hidden" name="gag_id" value="{{ meme.gag_id }}" />
+                                    </form>
+                                </div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>
