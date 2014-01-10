@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 
     url(r'^reasonable/$', 'reasonable.views.show_reasonable'),
     url(r'^reasonable/insert/$', 'reasonable.views.insert_reasonable'),
+    url(r'^reasonable/dump/$', 'reasonable.views.dump_reasonable'),
 
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),

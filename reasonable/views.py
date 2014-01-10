@@ -1,3 +1,6 @@
+import csv
+import StringIO
+from django.http import HttpResponse
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.shortcuts import redirect
@@ -37,4 +40,16 @@ def insert_reasonable(request):
     log = models.Log(meme=meme)
     log.save()
     return redirect('/reasonable/#set-{}'.format(gag_id))
+
+def dump_reasonable(request):
+    memes = models.Meme.objects.exclude(scene='')
+    output = StringIO.StringIO()
+    writer = csv.writer(output)
+    template_cnt = {}
+    writer.writerow(['role', 'situation'])
+    for meme in memes:
+        writer.writerow([meme.template.subject, meme.scene])
+    response = HttpResponse(output.getvalue(), mimetype='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=reasonable-dump.csv'
+    return response
 
