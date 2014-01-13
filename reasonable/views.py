@@ -47,12 +47,13 @@ def insert(request):
     return redirect('/reasonable/#set-{}'.format(gag_id))
 
 def dump(request):
-    memes = models.Meme.objects.exclude(scene='')
+    chooses = models.ChooseReasonable.objects.all()
     output = StringIO.StringIO()
     writer = csv.writer(output)
     template_cnt = {}
     writer.writerow(['role', 'situation'])
-    for meme in memes:
+    for choose in chooses:
+        meme = choose.meme
         writer.writerow([meme.template.subject, meme.scene])
     response = HttpResponse(output.getvalue(), mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=reasonable-dump.csv'
