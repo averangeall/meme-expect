@@ -13,6 +13,9 @@ class Meme(models.Model):
     expected_line = models.TextField()
     scene = models.TextField()
 
+class ChooseReasonable(models.Model):
+    meme = models.ForeignKey(Meme)
+
 class Log(models.Model):
     meme = models.ForeignKey(Meme)
     timestamp = models.DateTimeField(auto_now_add=True)

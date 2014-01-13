@@ -23,19 +23,28 @@
                             <div class="reasonable-meme">
                                 <img src="/static/memes/{{ template.name }}/{{ meme.gag_id }}.jpg" />
                             </div>
-                            {% if meme.sure %}
-                                <div class="reasonable-situation">
-                                    You are a {{ meme.subject }}, and {{ meme.scene }}.
-                                </div>
-                            {% else %}
-                                <div class="reasonable-situation">
-                                    <form action="/reasonable/insert/" method="post">
-                                        {% csrf_token %}
-                                        You are a {{ meme.subject }}, and <input type="text" name="scene" class="form-control" value="{{ meme.scene }}" />.
-                                        <input type="hidden" name="gag_id" value="{{ meme.gag_id }}" />
-                                    </form>
-                                </div>
-                            {% endif %}
+                            <div class="reasonable-situation">
+                                <p>
+                                    {% if meme.chosen %}
+                                        Chosen as a reasonable question.
+                                        <a class="btn btn-danger" href="/reasonable/remove/{{ meme.gag_id }}">Remove</a>
+                                    {% else %}
+                                        Not chosen yet.
+                                        <a class="btn btn-success" href="/reasonable/choose/{{ meme.gag_id }}">Choose</a>
+                                    {% endif %}
+                                </p>
+                                <p>
+                                    {% if meme.sure %}
+                                        You are a {{ meme.subject }}, and {{ meme.scene }}.
+                                    {% else %}
+                                        <form action="/reasonable/insert/" method="post">
+                                            {% csrf_token %}
+                                            You are a {{ meme.subject }}, and <input type="text" name="scene" class="form-control" value="{{ meme.scene }}" />.
+                                            <input type="hidden" name="gag_id" value="{{ meme.gag_id }}" />
+                                        </form>
+                                    {% endif %}
+                                </p>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

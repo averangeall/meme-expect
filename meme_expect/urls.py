@@ -18,9 +18,11 @@ urlpatterns = patterns('',
     url(r'^browse/$', 'browse.views.every'),
     url(r'^browse/(?P<template_name>.+)$', 'browse.views.single'),
 
-    url(r'^reasonable/$', 'reasonable.views.show_reasonable'),
-    url(r'^reasonable/insert/$', 'reasonable.views.insert_reasonable'),
-    url(r'^reasonable/dump/$', 'reasonable.views.dump_reasonable'),
+    url(r'^reasonable/$', 'reasonable.views.show'),
+    url(r'^reasonable/insert/$', 'reasonable.views.insert'),
+    url(r'^reasonable/dump/$', 'reasonable.views.dump'),
+    url(r'^reasonable/choose/(?P<gag_id>.+)$', 'reasonable.views.choose'),
+    url(r'^reasonable/remove/(?P<gag_id>.+)$', 'reasonable.views.remove'),
 
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),
