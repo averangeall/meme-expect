@@ -50,11 +50,10 @@ def dump(request):
     chooses = models.ChooseReasonable.objects.all()
     output = StringIO.StringIO()
     writer = csv.writer(output)
-    template_cnt = {}
-    writer.writerow(['role', 'situation'])
+    writer.writerow(['meme_id', 'role', 'situation'])
     for choose in chooses:
         meme = choose.meme
-        writer.writerow([meme.template.subject, meme.scene])
+        writer.writerow([meme.id, meme.template.subject, meme.scene])
     response = HttpResponse(output.getvalue(), mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=reasonable-dump.csv'
     return response
