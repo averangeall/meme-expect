@@ -17,7 +17,10 @@
             {% for meme in memes %}
                 <div>
                     <img src="/static/memes/{{ template.name }}/{{ meme.gag_id }}.jpg" />
+                    <p>{{ meme.first_line }}</p>
+                    <p>{{ meme.second_line }}</p>
                 </div>
+                <hr />
             {% endfor %}
         </div>
     </body>

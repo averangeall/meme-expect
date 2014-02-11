@@ -19,5 +19,5 @@ def single(request, template_name):
     dictt['template'] = {'title': template_name.title(), 'name': template_name}
     template = models.Template.objects.get(name=template_name)
     memes = models.Meme.objects.filter(template=template)
-    dictt['memes'] = [{'gag_id': meme.gag_id} for meme in memes]
+    dictt['memes'] = [{'gag_id': meme.gag_id, 'first_line': meme.first_line, 'second_line': meme.second_line} for meme in memes]
     return render_to_response('single.html', dictt)
