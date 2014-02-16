@@ -13,6 +13,7 @@ class Meme(models.Model):
     second_line = models.TextField()
     expected_line = models.TextField()
     scene = models.TextField()
+    punchline = models.TextField()
 
 class ChooseReasonable(models.Model):
     meme = models.ForeignKey(Meme)

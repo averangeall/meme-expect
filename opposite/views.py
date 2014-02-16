@@ -7,6 +7,7 @@ from turker import models
 
 def show(request):
     dictt = {}
+    dictt.update(csrf(request))
     dictt['templates'] = []
     suitable_templates = models.Template.objects.filter(expect_suitable=True)
     for template in suitable_templates:
@@ -22,7 +23,12 @@ def show(request):
             meme_part['normal_subject'] = template.normal_subject.title()
             meme_part['meme_subject'] = template.meme_subject.title()
             meme_part['scene'] = meme.scene.capitalize()
-            meme_part['punchline'] = meme.second_line.capitalize()
+            if meme.punchline:
+                meme_part['sure'] = True
+                meme_part['punchline'] = meme.punchline.capitalize()
+            else:
+                meme_part['sure'] = False
+                meme_part['second_line'] = meme.second_line.capitalize()
             meme_part['reasonables'] = []
             for reaction in reactions:
                 meme_part['reasonables'].append(reaction.text.capitalize())
@@ -58,4 +64,14 @@ def upload(request):
         reaction = models.Reaction(meme=meme, text=text, index=index)
         reaction.save()
     return redirect('/opposite/')
+
+def insert(request):
+    if request.method != 'POST':
+        return redirect('/opposite/')
+    gag_id = request.POST.get('gag_id', None)
+    punchline = request.POST.get('punchline', None)
+    meme = models.Meme.objects.get(gag_id=gag_id)
+    meme.punchline = punchline
+    meme.save()
+    return redirect('/opposite/#set-{}'.format(gag_id))
 

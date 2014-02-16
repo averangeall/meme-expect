@@ -34,4 +34,7 @@ body {
     max-width: 300px;
 }
 
+.opposite-situation input.form-control {
+    width: 400px;
+}
 
