@@ -1,0 +1,49 @@
+{% load staticfiles %}
+
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Reasonable Situations</title>
+        <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static "css/flat-ui.css" %}"></link>
+        <link rel="stylesheet" type="text/css" href="{% static "css/show_opposite.css" %}"></link>
+    </head>
+
+    <body>
+        <div id="content">
+            <h1>Opposite Situations</h1>
+            <a href="/opposite/dump/" class="btn btn-primary">Download CSV</a>
+            {% for template in templates %}
+                <h3>{{ template.name }}</h3>
+                <div class="opposite-table">
+                    {% for meme in template.memes %}
+                        <div id="set-{{ meme.gag_id }}" class="opposite-set">
+                            <div class="opposite-meme">
+                                <img src="/static/memes/{{ template.name }}/{{ meme.gag_id }}.jpg" />
+                            </div>
+                            <div class="opposite-situation">
+                                <p>
+                                    {{ meme.scene }}.
+                                </p>
+                                <p>
+                                    <div><strong>{{ meme.normal_subject }}:</strong></div>
+                                    <ol>
+                                        {% for reasonable in meme.reasonables %}
+                                            <li>{{ reasonable }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                </p>
+                                <p>
+                                    <div><strong>{{ meme.meme_subject }}:</strong></div>
+                                    <div>{{ meme.punchline }}</div>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

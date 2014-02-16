@@ -18,7 +18,7 @@ def show(request):
         for meme in memes:
             meme_part = {}
             meme_part['gag_id'] = meme.gag_id
-            meme_part['subject'] = template.subject
+            meme_part['normal_subject'] = template.normal_subject
             try:
                 models.ChooseReasonable.objects.get(meme=meme)
                 meme_part['chosen'] = True
@@ -53,7 +53,7 @@ def dump(request):
     writer.writerow(['meme_id', 'role', 'situation'])
     for choose in chooses:
         meme = choose.meme
-        writer.writerow([meme.id, meme.template.subject, meme.scene])
+        writer.writerow([meme.id, meme.template.normal_subject, meme.scene])
     response = HttpResponse(output.getvalue(), mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=reasonable-dump.csv'
     return response

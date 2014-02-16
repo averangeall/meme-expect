@@ -1,0 +1,37 @@
+body {
+    background: #ECF0F1;
+}
+
+#content {
+    width: 100%;
+    text-align: center;
+}
+
+.opposite-table {
+    display: table;
+    width: 100%;
+}
+
+.opposite-set {
+    display: table-row;
+}
+
+.opposite-meme {
+    display: table-cell;
+    text-align: right;
+    width: 300px;
+}
+
+.opposite-situation {
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    width: 500px;
+    padding-left: 20px;
+}
+
+.opposite-meme img {
+    max-width: 300px;
+}
+
+

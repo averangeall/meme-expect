@@ -35,11 +35,11 @@
                                 </p>
                                 <p>
                                     {% if meme.sure %}
-                                        You are a {{ meme.subject }}, and {{ meme.scene }}.
+                                        You are a {{ meme.normal_subject }}, and {{ meme.scene }}.
                                     {% else %}
                                         <form action="/reasonable/insert/" method="post">
                                             {% csrf_token %}
-                                            You are a {{ meme.subject }}, and <input type="text" name="scene" class="form-control" value="{{ meme.scene }}" />.
+                                            You are a {{ meme.normal_subject }}, and <input type="text" name="scene" class="form-control" value="{{ meme.scene }}" />.
                                             <input type="hidden" name="gag_id" value="{{ meme.gag_id }}" />
                                         </form>
                                     {% endif %}

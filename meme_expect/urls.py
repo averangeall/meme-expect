@@ -24,6 +24,10 @@ urlpatterns = patterns('',
     url(r'^reasonable/choose/(?P<gag_id>.+)$', 'reasonable.views.choose'),
     url(r'^reasonable/remove/(?P<gag_id>.+)$', 'reasonable.views.remove'),
 
+    url(r'^opposite/$', 'opposite.views.show'),
+    url(r'^opposite/reasonable/$', 'opposite.views.reasonable'),
+    url(r'^opposite/upload/$', 'opposite.views.upload'),
+
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),
     # url(r'^meme_expect/', include('meme_expect.foo.urls')),

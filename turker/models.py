@@ -2,7 +2,8 @@ from django.db import models
 
 class Template(models.Model):
     name = models.TextField()
-    subject = models.TextField()
+    normal_subject = models.TextField()
+    meme_subject = models.TextField()
     expect_suitable = models.BooleanField()
 
 class Meme(models.Model):
@@ -15,6 +16,11 @@ class Meme(models.Model):
 
 class ChooseReasonable(models.Model):
     meme = models.ForeignKey(Meme)
+
+class Reaction(models.Model):
+    meme = models.ForeignKey(Meme)
+    text = models.TextField()
+    index = models.IntegerField()
 
 class Log(models.Model):
     meme = models.ForeignKey(Meme)
