@@ -1,0 +1,24 @@
+{% load staticfiles %}
+
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Reasonable Situations</title>
+        <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static "css/flat-ui.css" %}"></link>
+        <link rel="stylesheet" type="text/css" href="{% static "css/choose_opposite_opposite.css" %}"></link>
+    </head>
+
+    <body>
+        <div id="content">
+            <h1>Upload Opposite Choices</h1>
+            <form action="/opposite/upload/opposite/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="opposite" />
+                <input type="submit" class="btn btn-primary" />
+            </form>
+        </div>
+    </body>
+</html>

@@ -24,6 +24,11 @@ class Reaction(models.Model):
     index = models.IntegerField()
     enabled = models.BooleanField()
 
+class Agree(models.Model):
+    meme = models.ForeignKey(Meme)
+    reaction = models.ForeignKey(Reaction)
+    turker_id = models.TextField()
+
 class Log(models.Model):
     meme = models.ForeignKey(Meme)
     timestamp = models.DateTimeField(auto_now_add=True)

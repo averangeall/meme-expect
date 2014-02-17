@@ -1,5 +1,7 @@
+import re
 import csv
 import StringIO
+import random
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
@@ -39,12 +41,12 @@ def show(request):
         dictt['templates'].append(template_part)
     return render_to_response('show_opposite.html', dictt)
 
-def reasonable(request):
+def choose_reasonable(request):
     dictt = {}
     dictt.update(csrf(request))
-    return render_to_response('reasonable_opposite.html', dictt)
+    return render_to_response('choose_reasonable_opposite.html', dictt)
 
-def upload(request):
+def upload_reasonable(request):
     if request.method != 'POST' or 'reasonable' not in request.FILES:
         return redirect('/opposite/')
     fr = request.FILES['reasonable']
@@ -62,8 +64,52 @@ def upload(request):
             pass
         num_prev = models.Reaction.objects.filter(meme=meme).count()
         index = num_prev + 1
-        reaction = models.Reaction(meme=meme, text=text, index=index)
+        reaction = models.Reaction(meme=meme, text=text, index=index, enabled=True)
         reaction.save()
+    return redirect('/opposite/')
+
+def choose_opposite(request):
+    dictt = {}
+    dictt.update(csrf(request))
+    return render_to_response('choose_opposite_opposite.html', dictt)
+
+def upload_opposite(request):
+    if request.method != 'POST' or 'opposite' not in request.FILES:
+        return redirect('/opposite/')
+    fr = request.FILES['opposite']
+    reader = csv.reader(fr)
+    rows = [row for row in reader]
+    rows.pop(0)
+    for row in rows:
+        meme_id = int(row[27])
+        choice = row[35]
+        text = row[36]
+        turker_id = row[15]
+        reactions_text = [row[31], row[32], row[33]]
+        meme = models.Meme.objects.get(id=meme_id)
+        if choice != 'choice-other':
+            assert not text.strip()
+            mo = re.match('choice-(\d)', choice)
+            assert mo
+            choice_idx = int(mo.group(1)) - 1
+            reaction = models.Reaction.objects.get(meme=meme, text=reactions_text[choice_idx])
+        else:
+            assert text.strip()
+            try:
+                reaction = models.Reaction.objects.get(meme=meme, text=text)
+            except models.Reaction.DoesNotExist:
+                pass
+            old_enabled_reactions = models.Reaction.objects.filter(meme=meme).filter(enabled=True)
+            disabled_reaction = random.choice(old_enabled_reactions)
+            disabled_reaction.enabled = False
+            disabled_reaction.save()
+            num_prev = models.Reaction.objects.filter(meme=meme).count()
+            index = num_prev + 1
+            new_reaction = models.Reaction(meme=meme, text=text, index=index, enabled=True)
+            new_reaction.save()
+            reaction = new_reaction
+        agree = models.Agree(meme=meme, reaction=reaction, turker_id=turker_id)
+        agree.save()
     return redirect('/opposite/')
 
 def insert(request):

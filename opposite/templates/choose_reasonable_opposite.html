@@ -8,13 +8,13 @@
         <title>Reasonable Situations</title>
         <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/png">
         <link rel="stylesheet" type="text/css" href="{% static "css/flat-ui.css" %}"></link>
-        <link rel="stylesheet" type="text/css" href="{% static "css/reasonable_opposite.css" %}"></link>
+        <link rel="stylesheet" type="text/css" href="{% static "css/choose_reasonable_opposite.css" %}"></link>
     </head>
 
     <body>
         <div id="content">
             <h1>Upload Reasonable Reactions</h1>
-            <form action="/opposite/upload/" method="post" enctype="multipart/form-data">
+            <form action="/opposite/upload/reasonable/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="file" name="reasonable" />
                 <input type="submit" class="btn btn-primary" />

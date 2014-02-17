@@ -25,8 +25,10 @@ urlpatterns = patterns('',
     url(r'^reasonable/remove/(?P<gag_id>.+)$', 'reasonable.views.remove'),
 
     url(r'^opposite/$', 'opposite.views.show'),
-    url(r'^opposite/reasonable/$', 'opposite.views.reasonable'),
-    url(r'^opposite/upload/$', 'opposite.views.upload'),
+    url(r'^opposite/choose/reasonable/$', 'opposite.views.choose_reasonable'),
+    url(r'^opposite/choose/opposite/$', 'opposite.views.choose_opposite'),
+    url(r'^opposite/upload/reasonable/$', 'opposite.views.upload_reasonable'),
+    url(r'^opposite/upload/opposite/$', 'opposite.views.upload_opposite'),
     url(r'^opposite/insert/$', 'opposite.views.insert'),
     url(r'^opposite/dump/$', 'opposite.views.dump'),
 
