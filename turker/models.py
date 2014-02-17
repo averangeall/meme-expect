@@ -22,6 +22,7 @@ class Reaction(models.Model):
     meme = models.ForeignKey(Meme)
     text = models.TextField()
     index = models.IntegerField()
+    enabled = models.BooleanField()
 
 class Log(models.Model):
     meme = models.ForeignKey(Meme)

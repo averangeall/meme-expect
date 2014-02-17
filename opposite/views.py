@@ -1,4 +1,5 @@
 import csv
+import StringIO
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
@@ -74,4 +75,28 @@ def insert(request):
     meme.punchline = punchline
     meme.save()
     return redirect('/opposite/#set-{}'.format(gag_id))
+
+def dump(request):
+    chooses = models.ChooseReasonable.objects.all()
+    output = StringIO.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(['meme_id', 'normal_subject', 'meme_subject', 'situation', 'reaction_1', 'reaction_2', 'reaction_3', 'punchline'])
+    for choose in chooses:
+        meme = choose.meme
+        reactions = models.Reaction.objects.filter(meme=meme).filter(enabled=True).order_by('index')
+        assert reactions.count() == 3
+        row = [
+            meme.id,
+            meme.template.normal_subject.title(),
+            meme.template.meme_subject.title(),
+            meme.scene.capitalize(),
+            reactions[0].text,
+            reactions[1].text,
+            reactions[2].text,
+            meme.punchline.capitalize(),
+        ]
+        writer.writerow(row)
+    response = HttpResponse(output.getvalue(), mimetype='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=opposite-dump.csv'
+    return response
 
