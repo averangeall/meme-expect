@@ -146,6 +146,14 @@ def dump(request):
         meme = choose.meme
         reactions = models.Reaction.objects.filter(meme=meme).filter(enabled=True).order_by('index')
         assert reactions.count() == 3
+        completed = False
+        for reaction in reactions:
+            agrees = models.Agree.objects.filter(reaction=reaction)
+            if agrees.count() >= 2:
+                completed = True
+                break
+        if completed:
+            continue
         row = [
             meme.id,
             meme.template.normal_subject.title(),
