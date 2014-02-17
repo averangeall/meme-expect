@@ -34,7 +34,12 @@ def show(request):
                 meme_part['second_line'] = meme.second_line.capitalize()
             meme_part['reasonables'] = []
             for reaction in reactions:
-                meme_part['reasonables'].append(reaction.text.capitalize())
+                num_agrees = models.Agree.objects.filter(meme=meme).filter(reaction=reaction).count()
+                reasonable = {
+                    'text': reaction.text.capitalize(),
+                    'num_agrees': num_agrees,
+                }
+                meme_part['reasonables'].append(reasonable)
             template_part['memes'].append(meme_part)
         if not template_part['memes']:
             continue

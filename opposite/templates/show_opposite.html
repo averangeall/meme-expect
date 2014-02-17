@@ -33,7 +33,7 @@
                                     <div><strong>{{ meme.normal_subject }}:</strong></div>
                                     <ol>
                                         {% for reasonable in meme.reasonables %}
-                                            <li>{{ reasonable }}</li>
+                                            <li>{{ reasonable.text }} - {{ reasonable.num_agrees }}</li>
                                         {% endfor %}
                                     </ol>
                                 </p>
