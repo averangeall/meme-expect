@@ -85,6 +85,7 @@ def upload_opposite(request):
     reader = csv.reader(fr)
     rows = [row for row in reader]
     rows.pop(0)
+    conflicts = []
     for row in rows:
         meme_id = int(row[27])
         choice = row[35]
@@ -92,7 +93,14 @@ def upload_opposite(request):
         turker_id = row[15]
         reactions_text = [row[31], row[32], row[33]]
         meme = models.Meme.objects.get(id=meme_id)
-        if choice != 'choice-other':
+        same_turker_agrees = models.Agree.objects.filter(meme=meme).filter(turker_id=turker_id)
+        if same_turker_agrees.count():
+            assert same_turker_agrees.count() == 1
+            same_turker_agree = same_turker_agrees[0]
+            conflict_text = '{} answered {} on meme {} before'.format(turker_id, same_turker_agree.reaction.text, meme.gag_id)
+            conflicts.append(conflict_text)
+            continue
+        elif choice != 'choice-other':
             assert not text.strip()
             mo = re.match('choice-(\d)', choice)
             assert mo
@@ -115,6 +123,8 @@ def upload_opposite(request):
             reaction = new_reaction
         agree = models.Agree(meme=meme, reaction=reaction, turker_id=turker_id)
         agree.save()
+    if conflicts:
+        return render_to_response('conflict_opposite_opposite.html', {'conflicts': conflicts})
     return redirect('/opposite/')
 
 def insert(request):
