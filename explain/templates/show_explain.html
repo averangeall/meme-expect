@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Meme Explanations</title>
+        <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/png">
+        <link rel="stylesheet" type="text/css" href="{% static "css/flat-ui.css" %}"></link>
+        <link rel="stylesheet" type="text/css" href="{% static "css/show_explain.css" %}"></link>
+    </head>
+
+    <body>
+        <div id="content">
+            <h1>Meme Explanations</h1>
+            <a href="/opposite/dump/" class="btn btn-primary">Download CSV</a>
+            {% for template in templates %}
+                <h3>{{ template.name }}</h3>
+                <div class="explain-table">
+                    {% for meme in template.memes %}
+                        <div id="set-{{ meme.gag_id }}" class="explain-set">
+                            <div class="explain-meme">
+                                <img src="/static/memes/{{ template.name }}/{{ meme.gag_id }}.jpg" />
+                            </div>
+                            <div class="explain-explain">
+                                <p>
+                                    This is "{{ template.name }}". {{ template.intro }}
+                                </p>
+                                <p>
+                                    In this meme, {{ meme.second_move }}.
+                                </p>
+                                <p>
+                                    You may expected that {{ meme.third_move }}.
+                                </p>
+                                <p>
+                                    However, it turned out that {{ meme.fourth_move }}.
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

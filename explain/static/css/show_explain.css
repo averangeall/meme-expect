@@ -1,0 +1,35 @@
+body {
+    background: #ECF0F1;
+}
+
+#content {
+    width: 100%;
+    text-align: center;
+}
+
+.explain-table {
+    display: table;
+    width: 100%;
+}
+
+.explain-set {
+    display: table-row;
+}
+
+.explain-meme {
+    display: table-cell;
+    text-align: right;
+    width: 300px;
+}
+
+.explain-meme img {
+    max-width: 300px;
+}
+
+.explain-explain {
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    width: 300px;
+    padding-left: 20px;
+}

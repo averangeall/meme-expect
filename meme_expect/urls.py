@@ -6,7 +6,7 @@ from django.views.generic.base import RedirectView
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', RedirectView.as_view(url='/reasonable/')),
+    url(r'^$', RedirectView.as_view(url='/explain/')),
     url(r'^init/$', 'turker.views.init'),
 
     url(r'^fill/$', 'turker.views.fill'),
@@ -31,6 +31,8 @@ urlpatterns = patterns('',
     url(r'^opposite/upload/opposite/$', 'opposite.views.upload_opposite'),
     url(r'^opposite/insert/$', 'opposite.views.insert'),
     url(r'^opposite/dump/$', 'opposite.views.dump'),
+
+    url(r'^explain/$', 'explain.views.show'),
 
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),
