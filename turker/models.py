@@ -12,8 +12,10 @@ class Meme(models.Model):
     first_line_raw = models.TextField()
     second_line_raw = models.TextField()
     expected_line = models.TextField()
-    scene = models.TextField()
+    first_line_you = models.TextField()
     punchline = models.TextField()
+    first_line_she = models.TextField()
+    second_line_she = models.TextField()
 
 class ChooseReasonable(models.Model):
     meme = models.ForeignKey(Meme)

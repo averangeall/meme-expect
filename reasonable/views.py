@@ -24,12 +24,12 @@ def show(request):
                 meme_part['chosen'] = True
             except models.ChooseReasonable.DoesNotExist:
                 meme_part['chosen'] = False
-            if meme.scene:
+            if meme.first_line_you:
                 meme_part['sure'] = True
-                meme_part['scene'] = meme.scene
+                meme_part['first_line_you'] = meme.first_line_you
             else:
                 meme_part['sure'] = False
-                meme_part['scene'] = meme.first_line_raw.lower()
+                meme_part['first_line_raw'] = meme.first_line_raw.lower()
             template_part['memes'].append(meme_part)
         dictt['templates'].append(template_part)
     return render_to_response('show_reasonable.html', dictt)
@@ -38,9 +38,9 @@ def insert(request):
     if request.method != 'POST':
         return redirect('/reasonable/')
     gag_id = request.POST.get('gag_id')
-    scene = request.POST.get('scene')
+    first_line_you = request.POST.get('first_line_you')
     meme = models.Meme.objects.get(gag_id=gag_id)
-    meme.scene = scene
+    meme.first_line_you = first_line_you
     meme.save()
     log = models.Log(meme=meme)
     log.save()
@@ -53,7 +53,7 @@ def dump(request):
     writer.writerow(['meme_id', 'role', 'situation'])
     for choose in chooses:
         meme = choose.meme
-        writer.writerow([meme.id, meme.template.normal_subject, meme.scene])
+        writer.writerow([meme.id, meme.template.normal_subject, meme.first_line_you])
     response = HttpResponse(output.getvalue(), mimetype='application/force-download')
     response['Content-Disposition'] = 'attachment; filename=reasonable-dump.csv'
     return response

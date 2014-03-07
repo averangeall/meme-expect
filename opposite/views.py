@@ -25,7 +25,7 @@ def show(request):
             meme_part['gag_id'] = meme.gag_id
             meme_part['normal_subject'] = template.normal_subject.title()
             meme_part['meme_subject'] = template.meme_subject.title()
-            meme_part['scene'] = meme.scene.capitalize()
+            meme_part['first_line_you'] = meme.first_line_you.capitalize()
             if meme.punchline:
                 meme_part['sure'] = True
                 meme_part['punchline'] = meme.punchline.capitalize()
@@ -158,7 +158,7 @@ def dump(request):
             meme.id,
             meme.template.normal_subject.title(),
             meme.template.meme_subject.title(),
-            meme.scene.capitalize(),
+            meme.first_line_you.capitalize(),
             reactions[0].text,
             reactions[1].text,
             reactions[2].text,
