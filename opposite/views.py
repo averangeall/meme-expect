@@ -26,9 +26,9 @@ def show(request):
             meme_part['normal_subject'] = template.normal_subject.title()
             meme_part['meme_subject'] = template.meme_subject.title()
             meme_part['first_line_you'] = meme.first_line_you.capitalize()
-            if meme.punchline:
+            if meme.second_line_you:
                 meme_part['sure'] = True
-                meme_part['punchline'] = meme.punchline.capitalize()
+                meme_part['second_line_you'] = meme.second_line_you.capitalize()
             else:
                 meme_part['sure'] = False
                 meme_part['second_line'] = meme.second_line_raw.capitalize()
@@ -131,9 +131,9 @@ def insert(request):
     if request.method != 'POST':
         return redirect('/opposite/')
     gag_id = request.POST.get('gag_id', None)
-    punchline = request.POST.get('punchline', None)
+    second_line_you = request.POST.get('second_line_you', None)
     meme = models.Meme.objects.get(gag_id=gag_id)
-    meme.punchline = punchline
+    meme.second_line_you = second_line_you
     meme.save()
     return redirect('/opposite/#set-{}'.format(gag_id))
 
@@ -162,7 +162,7 @@ def dump(request):
             reactions[0].text,
             reactions[1].text,
             reactions[2].text,
-            meme.punchline.capitalize(),
+            meme.second_line_you.capitalize(),
         ]
         writer.writerow(row)
     response = HttpResponse(output.getvalue(), mimetype='application/force-download')

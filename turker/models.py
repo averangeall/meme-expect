@@ -13,7 +13,7 @@ class Meme(models.Model):
     second_line_raw = models.TextField()
     expected_line = models.TextField()
     first_line_you = models.TextField()
-    punchline = models.TextField()
+    second_line_you = models.TextField()
     first_line_she = models.TextField()
     second_line_she = models.TextField()
 

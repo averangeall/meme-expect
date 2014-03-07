@@ -40,11 +40,11 @@
                                 <p>
                                     <div><strong>{{ meme.meme_subject }}:</strong></div>
                                     {% if meme.sure %}
-                                        <div>{{ meme.punchline }}</div>
+                                        <div>{{ meme.second_line_you }}</div>
                                     {% else %}
                                         <form action="/opposite/insert/" method="post">
                                             {% csrf_token %}
-                                            <div><input type="text" name="punchline" value="{{ meme.second_line }}" class="form-control" /></div>
+                                            <div><input type="text" name="second_line_you" value="{{ meme.second_line }}" class="form-control" /></div>
                                             <input type="hidden" name="gag_id" value="{{ meme.gag_id }}" />
                                         </form>
                                     {% endif %}
