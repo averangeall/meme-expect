@@ -15,7 +15,7 @@ def show(request):
     suitable_templates = models.Template.objects.filter(expect_suitable=True)
     for template in suitable_templates:
         template_part = {'name': template.name}
-        memes = models.Meme.objects.filter(template=template).exclude(first_line='')
+        memes = models.Meme.objects.filter(template=template).exclude(first_line_raw='')
         template_part['memes'] = []
         for meme in memes:
             reactions = models.Reaction.objects.filter(meme=meme)
@@ -31,7 +31,7 @@ def show(request):
                 meme_part['punchline'] = meme.punchline.capitalize()
             else:
                 meme_part['sure'] = False
-                meme_part['second_line'] = meme.second_line.capitalize()
+                meme_part['second_line'] = meme.second_line_raw.capitalize()
             meme_part['reasonables'] = []
             for reaction in reactions:
                 num_agrees = models.Agree.objects.filter(meme=meme).filter(reaction=reaction).count()

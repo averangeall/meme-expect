@@ -9,7 +9,7 @@ def show(request):
     suitable_templates = models.Template.objects.filter(expect_suitable=True)
     for template in suitable_templates:
         template_part = {'name': template.name}
-        memes = models.Meme.objects.filter(template=template).exclude(first_line='')
+        memes = models.Meme.objects.filter(template=template).exclude(first_line_raw='')
         template_part['memes'] = []
         for meme in memes:
             reactions = models.Reaction.objects.filter(meme=meme)
@@ -24,7 +24,7 @@ def show(request):
             meme_part['gag_id'] = meme.gag_id
             meme_part['second_move'] = meme.scene.lower()
             meme_part['third_move'] = best_reaction.text.lower()
-            meme_part['fourth_move'] = meme.second_line.lower()
+            meme_part['fourth_move'] = meme.second_line_raw.lower()
             template_part['memes'].append(meme_part)
         if not template_part['memes']:
             continue

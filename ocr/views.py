@@ -12,8 +12,8 @@ def write(request):
     len_memes = models.Meme.objects.all().count()
     sorted_memes = [[] for i in range(len_memes)]
     for template in templates:
-        empty_memes = models.Meme.objects.filter(template=template).filter(first_line='').filter(second_line='')
-        fill_memes = models.Meme.objects.filter(template=template).exclude(first_line='').exclude(second_line='')
+        empty_memes = models.Meme.objects.filter(template=template).filter(first_line_raw='').filter(second_line_raw='')
+        fill_memes = models.Meme.objects.filter(template=template).exclude(first_line_raw='').exclude(second_line_raw='')
         sorted_memes[fill_memes.count()].extend(empty_memes)
 
     for memes in sorted_memes:
@@ -30,11 +30,11 @@ def insert(request):
     if request.method != 'POST':
         return redirect('/ocr/')
     gag_id = request.POST.get('gag_id')
-    first_line = request.POST.get('line-1')
-    second_line = request.POST.get('line-2')
+    first_line_raw = request.POST.get('line-1')
+    second_line_raw = request.POST.get('line-2')
     meme = models.Meme.objects.get(gag_id=gag_id)
-    meme.first_line = first_line
-    meme.second_line = second_line
+    meme.first_line_raw = first_line_raw
+    meme.second_line_raw = second_line_raw
     meme.save()
     log = models.Log(meme=meme)
     log.save()

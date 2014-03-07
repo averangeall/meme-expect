@@ -9,8 +9,8 @@ class Template(models.Model):
 class Meme(models.Model):
     gag_id = models.TextField()
     template = models.ForeignKey(Template)
-    first_line = models.TextField()
-    second_line = models.TextField()
+    first_line_raw = models.TextField()
+    second_line_raw = models.TextField()
     expected_line = models.TextField()
     scene = models.TextField()
     punchline = models.TextField()

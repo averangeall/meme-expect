@@ -13,7 +13,7 @@ def show(request):
     suitable_templates = models.Template.objects.filter(expect_suitable=True)
     for template in suitable_templates:
         template_part = {'name': template.name}
-        memes = models.Meme.objects.filter(template=template).exclude(first_line='')
+        memes = models.Meme.objects.filter(template=template).exclude(first_line_raw='')
         template_part['memes'] = []
         for meme in memes:
             meme_part = {}
@@ -29,7 +29,7 @@ def show(request):
                 meme_part['scene'] = meme.scene
             else:
                 meme_part['sure'] = False
-                meme_part['scene'] = meme.first_line.lower()
+                meme_part['scene'] = meme.first_line_raw.lower()
             template_part['memes'].append(meme_part)
         dictt['templates'].append(template_part)
     return render_to_response('show_reasonable.html', dictt)
