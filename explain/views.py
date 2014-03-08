@@ -20,11 +20,16 @@ def show(request):
                 agrees = models.Agree.objects.filter(reaction=reaction)
                 agree_cnts[reaction] = agrees.count()
             best_reaction = max(agree_cnts, key=agree_cnts.get)
+
             meme_part = {}
             meme_part['gag_id'] = meme.gag_id
-            meme_part['second_move'] = meme.first_line_she.lower()
-            meme_part['third_move'] = best_reaction.text.lower()
-            meme_part['fourth_move'] = meme.second_line_she.lower()
+            meme_part['first_move_sure'] = bool(template.intro)
+            meme_part['first_move_line'] = template.intro if template.intro else ''
+            meme_part['second_move_sure'] = bool(meme.first_line_she)
+            meme_part['second_move_line'] = meme.first_line_she if meme.first_line_she else meme.first_line_raw.lower()
+            meme_part['third_move_line'] = best_reaction.text.lower()
+            meme_part['fourth_move_sure'] = bool(meme.second_line_she)
+            meme_part['fourth_move_line'] = meme.second_line_she if meme.second_line_she else meme.second_line_raw.lower()
             template_part['memes'].append(meme_part)
         if not template_part['memes']:
             continue

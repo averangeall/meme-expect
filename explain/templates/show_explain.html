@@ -25,16 +25,42 @@
                             </div>
                             <div class="explain-explain">
                                 <p>
-                                    This is "{{ template.name }}". {{ template.intro }}
+                                    This is "{{ template.name }}".
+                                    {% if meme.first_move_sure %}
+                                        {{ template.first_move_line }}
+                                    {% else %}
+                                        <br>
+                                        <form action="/explain/insert/" method="post">
+                                            <input type="text" name="first_move_line" value="" class="form-control" />
+                                        </form>
+                                    {% endif %}
                                 </p>
                                 <p>
                                     In this meme, {{ meme.second_move }}.
+                                    {% if meme.second_move_sure %}
+                                        {{ template.second_move_line }}
+                                    {% else %}
+                                        <br>
+                                        <form action="/explain/insert/" method="post">
+                                            <input type="text" name="second_move_line"
+                                                   value="{{ meme.second_move_line}}" class="form-control" />
+                                        </form>
+                                    {% endif %}
                                 </p>
                                 <p>
-                                    You may expected that {{ meme.third_move }}.
+                                    You may expected that {{ meme.third_move_line }}.
                                 </p>
                                 <p>
                                     However, it turned out that {{ meme.fourth_move }}.
+                                    {% if meme.fourth_move_sure %}
+                                        {{ template.fourth_move_line }}
+                                    {% else %}
+                                        <br>
+                                        <form action="/explain/insert/" method="post">
+                                            <input type="text" name="fourth_move_line"
+                                                   value="{{ meme.fourth_move_line}}" class="form-control" />
+                                        </form>
+                                    {% endif %}
                                 </p>
                             </div>
                         </div>

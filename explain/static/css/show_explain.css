@@ -33,3 +33,8 @@ body {
     width: 300px;
     padding-left: 20px;
 }
+
+input.form-control {
+    width: 400px;
+}
+

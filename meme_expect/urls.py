@@ -33,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^opposite/dump/$', 'opposite.views.dump'),
 
     url(r'^explain/$', 'explain.views.show'),
+    url(r'^explain/insert/$', 'explain.views.insert'),
 
     # Examples:
     # url(r'^$', 'meme_expect.views.home', name='home'),

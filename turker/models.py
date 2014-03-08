@@ -5,6 +5,7 @@ class Template(models.Model):
     normal_subject = models.TextField()
     meme_subject = models.TextField()
     expect_suitable = models.BooleanField()
+    intro = models.TextField()
 
 class Meme(models.Model):
     gag_id = models.TextField()
