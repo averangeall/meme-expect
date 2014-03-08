@@ -7,13 +7,13 @@ def show(request):
     dictt = {}
     dictt.update(csrf(request))
     dictt['templates'] = []
-    suitable_templates = models.Template.objects.filter(expect_suitable=True)
+    suitable_templates = models.Template.objects.filter(expect_suitable=True).order_by('name')
     for template in suitable_templates:
         template_part = {'name': template.name}
         memes = models.Meme.objects.filter(template=template).exclude(first_line_raw='')
         template_part['memes'] = []
         for meme in memes:
-            reactions = models.Reaction.objects.filter(meme=meme)
+            reactions = models.Reaction.objects.filter(meme=meme).order_by('id')
             if not reactions.count():
                 continue
             agree_cnts = {}
@@ -54,5 +54,5 @@ def insert(request):
     elif fourth_move_line:
         meme.second_line_she = fourth_move_line
         meme.save()
-    return redirect('/explain/')
+    return redirect('/explain/#set-{}'.format(gag_id))
 
