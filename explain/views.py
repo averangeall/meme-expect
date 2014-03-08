@@ -1,5 +1,6 @@
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
+from django.shortcuts import redirect
 from turker import models
 
 def show(request):
@@ -35,3 +36,23 @@ def show(request):
             continue
         dictt['templates'].append(template_part)
     return render_to_response('show_explain.html', dictt)
+
+def insert(request):
+    if request.method != 'POST':
+        return redirect('/explain/')
+    gag_id = request.POST.get('gag_id')
+    first_move_line = request.POST.get('first_move_line')
+    second_move_line = request.POST.get('second_move_line')
+    fourth_move_line = request.POST.get('fourth_move_line')
+    meme = models.Meme.objects.get(gag_id=gag_id)
+    if first_move_line:
+        meme.template.intro = first_move_line
+        meme.template.save()
+    elif second_move_line:
+        meme.first_line_she = second_move_line
+        meme.save()
+    elif fourth_move_line:
+        meme.second_line_she = fourth_move_line
+        meme.save()
+    return redirect('/explain/')
+
